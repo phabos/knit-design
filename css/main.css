@@ -1,0 +1,22 @@
+@import url(https://fonts.googleapis.com/css?family=Amatic+SC:400,700);
+
+body {
+    margin: 0;
+    padding: 0;
+}
+.container{
+    margin: 0 30px;
+}
+.title {
+    font-family: 'Amatic SC', cursive;
+}
+#canvas {
+    position:relative;
+    margin: 30px 0;
+}
+.box {
+    position: absolute;
+    width:30px;
+    height:30px;
+    border:1px solid #D3D3D3;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tricot - App</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href='css/main.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <form id="create-form">
+                <input name="hauteur" type="number" min="0" />
+                <input name="longueur" type="number" min="0" />
+                <button type="submit">Créer</button>
+            </form>
+        </div>
+        <div id="canvas"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+    <script>
+        $( document ).ready(function(){
+            $( "#create-form" ).submit(function( event ) {
+                event.preventDefault();
+                var dimension = 30;
+                var hauteur = +$('#create-form input[name=hauteur]').val();
+                var longueur = +$('#create-form input[name=longueur]').val();
+                var canvas = document.getElementById("canvas");
+
+                for (var i = 0; i < hauteur; i++) {
+                    for (var k = 0; k < longueur; k++) {
+                        var para = document.createElement("div");
+                        para.classList.add("box");
+                        para.style.left = (k * dimension) + "px";
+                        para.style.top = (i * dimension) + "px";
+                        canvas.appendChild(para);
+                        para.addEventListener('dragenter', function() {
+                            this.style.borderStyle = 'dashed';
+                        });
+                        para.addEventListener('dragleave', function() {
+                            this.style.borderStyle = 'solid';
+                        });
+                        para.addEventListener('dragover', function(e){
+                            e.preventDefault();
+                        }, false);
+                        para.addEventListener('drop', function(e) {
+                            e.preventDefault();
+                            console.log(e);
+                            console.log(this);
+                            console.log('Vous avez bien déposé votre élément !');
+                        });
+                    }
+                }
+
+            });
+        });
+    </script>
+</body>
+</html>
