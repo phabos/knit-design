@@ -3,13 +3,13 @@
 <head>
     <title>Tricot - App</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href='css/main.css' rel='stylesheet' type='text/css'>
+    <link href='assets/css/main.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
     <div class="form-container">
         <form id="create-form">
-            <input name="hauteur" type="number" min="0" />
-            <input name="longueur" type="number" min="0" />
+            <input name="hauteur" type="number" min="0" placeholder="nb de lignes" />
+            <input name="longueur" type="number" min="0" placeholder="nb de colonnes" />
             <button type="submit">Créer</button>
         </form>
     </div>
@@ -48,9 +48,13 @@
                         }, false);
                         para.addEventListener('drop', function(e) {
                             e.preventDefault();
-                            console.log(e);
-                            console.log(this);
-                            console.log('Vous avez bien déposé votre élément !');
+                            this.style.borderStyle = 'solid';
+                            var files = e.target.files || e.dataTransfer.files;
+                            if( typeof files[0] != 'undefined' ) {
+                                // Do something !
+                                console.log(files[0].name);
+                                //this.css({'background-image' : ''})
+                            }
                         });
                     }
                 }
