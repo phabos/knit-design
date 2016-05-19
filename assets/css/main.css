@@ -59,4 +59,24 @@ body {
     height:30px;
     border:1px solid #D3D3D3;
     border-radius: 5px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.toolbox {
+    position: fixed;
+    height: 100%;
+    background-color: #F9F9FB;
+    width: 100px;
+    top:0;
+    left: 0;
+}
+.toolbox ul.unstyled {
+    list-style-type: none;
+}
+.toolbox ul.unstyled li {
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.toolbox ul.unstyled li:hover {
+    margin-left: 5px;
 }
