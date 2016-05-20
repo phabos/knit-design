@@ -6,13 +6,25 @@ body {
     background-color: #F9F9FB;
 }
 .container{
-    margin: 0 auto 10px auto;
+    margin: 200px auto 10px auto;
 }
 .form-container{
     text-align: center;
     background-color: #4D394B;
-    padding: 20px 0;
-    width:100%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+.form-container #create-form{
+    text-align: center;
+    margin: 50vh auto 0 auto;
+    width: 300px;
+    transform: translateY(-50%);
 }
 .form-container input{
     border-bottom: 2px solid #4F9689;
@@ -20,11 +32,13 @@ body {
     border-left: none;
     border-right: none;
     background-color: transparent;
-    padding: 5px;
-    width: 200px;
+    padding: 2%;
+    width: 96%;
     color: #FFF;
     font-size: 14px;
     font-weight: lighter;
+    margin-bottom: 10px;
+    text-align: center;
 }
 .clear {
     clear: both;
@@ -45,6 +59,7 @@ body {
     border:none;
     text-transform: uppercase;
     cursor: pointer;
+    width:100%;
 }
 .title {
     font-family: 'Amatic SC', cursive;
@@ -64,19 +79,51 @@ body {
 }
 .toolbox {
     position: fixed;
-    height: 100%;
-    background-color: #F9F9FB;
-    width: 100px;
-    top:0;
+    height: 100px;
+    background-color: #4D394B;
+    width: 100%;
+    top:-102px;
     left: 0;
+    border-bottom: 2px solid #4F9689;
+    -webkit-transition: all 2s;
+    transition: all 2s;
 }
-.toolbox ul.unstyled {
-    list-style-type: none;
+.toolbox img{
+    float: left;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    margin: 0 5px 5px 0;
 }
-.toolbox ul.unstyled li {
+.toolbox.active{
+    top:0px;
+}
+.toolbox button{
+    float: left;
+    height:100%;
+    width:70px;
+    border:none;
+    background-color:#4F9689;
+    color: #fff;
+    font-size: 15px;
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
+    margin-right: 10px;
+    cursor: pointer;
 }
-.toolbox ul.unstyled li:hover {
-    margin-left: 5px;
+.toolbox button.enabled,
+.toolbox button:hover{
+    background-color:#fff;
+    color:#4F9689;
+}
+.toolbox .symbol-container img {
+    border: 3px solid #fff;
+}
+.toolbox .symbol-container img.enabled {
+    border: 3px solid #4F9689;
+}
+.symbol-container{
+    padding: 5px;
+    overflow-x: scroll;
+    height: 85px;
 }

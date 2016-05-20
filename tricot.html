@@ -4,25 +4,34 @@
         <title>Tricot - App</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href='assets/css/main.css' rel='stylesheet' type='text/css'>
+        <link href="assets/font-awesome/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     </head>
     <body ng-app="tricot" ng-controller="MainCtrl">
         <div class="form-container">
             <form id="create-form">
                 <input name="hauteur" type="number" min="0" placeholder="nb de lignes" />
+                <br/>
                 <input name="longueur" type="number" min="0" placeholder="nb de colonnes" />
-                <button type="submit">Créer</button>
+                <br/>
+                <button type="submit" ng-click="submitForm()">Créer</button>
             </form>
         </div>
         <div class="container">
-            <div id="canvas"></div>
+            <div id="canvas">
+                <div ng-repeat="box in boxes" ng-click="boxClick($event)" class="box" style="left: {{box.left}}; top: {{box.top}};"></div>
+            </div>
             <div class="clear"></div>
         </div>
         <div class="toolbox">
-            <ul class="unstyled">
-                <li ng-repeat="symbol in symbols">
-                    <img src="{{symbol.s}}" ondragstart="drag(event)" />
-                </li>
-            </ul>
+            <button ng-click="newPlan()">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+            <button ng-click="eraserMode($event)" id="eraserBtn">
+                <i class="fa fa-eraser" aria-hidden="true"></i>
+            </button>
+            <div class="symbol-container">
+                <img ng-repeat="symbol in symbols" src="{{symbol.s}}" ng-click="selectSymbol($event)" />
+            </div>
         </div>
         <div class="clear"></div>
 
