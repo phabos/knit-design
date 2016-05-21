@@ -30,7 +30,9 @@
                 <i class="fa fa-eraser" aria-hidden="true"></i>
             </button>
             <div class="symbol-container">
-                <img ng-repeat="symbol in symbols" src="{{symbol.s}}" ng-click="selectSymbol($event)" />
+                <div class="symbols">
+                    <img ng-repeat="symbol in symbols" src="{{symbol.s}}" ng-click="selectSymbol($event)" />
+                </div>
             </div>
         </div>
         <div class="clear"></div>

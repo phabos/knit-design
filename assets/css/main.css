@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #F9F9FB;
+    font-size: 12px;
 }
 .container{
     margin: 200px auto 10px auto;
@@ -76,6 +77,10 @@ body {
     border-radius: 5px;
     background-repeat: no-repeat;
     background-position: center;
+    cursor: pointer;
+}
+.box:hover {
+    border:1px dashed #D3D3D3;
 }
 .toolbox {
     position: fixed;
@@ -122,8 +127,11 @@ body {
 .toolbox .symbol-container img.enabled {
     border: 3px solid #4F9689;
 }
-.symbol-container{
-    padding: 5px;
-    overflow-x: scroll;
-    height: 85px;
+.toolbox .symbol-container{
+    overflow-x: hidden;
+    height: 100px;
+    overflow-y: scroll;
+}
+.toolbox .symbols {
+    margin: 5px;
 }
