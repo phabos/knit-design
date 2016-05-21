@@ -9,6 +9,7 @@
     <body ng-app="tricot" ng-controller="MainCtrl">
         <div class="form-container">
             <form id="create-form">
+                <h1><i class="fa fa-th-large" aria-hidden="true"></i> Knit Design</h1>
                 <input name="hauteur" type="number" min="0" placeholder="nb de lignes" />
                 <br/>
                 <input name="longueur" type="number" min="0" placeholder="nb de colonnes" />
@@ -18,7 +19,7 @@
         </div>
         <div class="container">
             <div id="canvas">
-                <div ng-repeat="box in boxes" ng-click="boxClick($event)" class="box" style="left: {{box.left}}; top: {{box.top}};"></div>
+                <div ng-repeat="box in boxes" ng-click="boxClick($event)" class="box" style="left: {{box.left}}; top: {{box.top}};" weight="1"></div>
             </div>
             <div class="clear"></div>
         </div>
@@ -31,7 +32,7 @@
             </button>
             <div class="symbol-container">
                 <div class="symbols">
-                    <img ng-repeat="symbol in symbols" src="{{symbol.s}}" ng-click="selectSymbol($event)" />
+                    <img ng-repeat="symbol in symbols" ng-src="{{symbol.s}}" weight="{{symbol.weight}}" ng-click="selectSymbol($event)" />
                 </div>
             </div>
         </div>

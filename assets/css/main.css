@@ -1,10 +1,20 @@
-@import url(https://fonts.googleapis.com/css?family=Amatic+SC:400,700);
-
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: 'lobster';
+  src: url("../fonts/Lobster.otf") format("truetype");
+}
 body {
     margin: 0;
     padding: 0;
     background-color: #F9F9FB;
     font-size: 12px;
+    font-family: 'lobster';
+}
+h1{
+    color:#fff;
+    font-size: 45px;
+    letter-spacing: 5px;
 }
 .container{
     margin: 200px auto 10px auto;
@@ -24,7 +34,7 @@ body {
 .form-container #create-form{
     text-align: center;
     margin: 50vh auto 0 auto;
-    width: 300px;
+    width: 400px;
     transform: translateY(-50%);
 }
 .form-container input{
@@ -61,6 +71,7 @@ body {
     text-transform: uppercase;
     cursor: pointer;
     width:100%;
+    font-size: 15px;
 }
 .title {
     font-family: 'Amatic SC', cursive;

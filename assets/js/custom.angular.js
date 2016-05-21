@@ -77,10 +77,6 @@ app.constant(
         { "s": "assets/symbols/1052.png", "weight": "1" },
         { "s": "assets/symbols/1054.png", "weight": "1" },
         { "s": "assets/symbols/1055.png", "weight": "1" },
-        { "s": "assets/symbols/10001.png", "weight": "10" },
-        { "s": "assets/symbols/10002.png", "weight": "10" },
-        { "s": "assets/symbols/12001.png", "weight": "12" },
-        { "s": "assets/symbols/12002.png", "weight": "12" },
         { "s": "assets/symbols/1999.png", "weight": "2" },
         { "s": "assets/symbols/2000.png", "weight": "2" },
         { "s": "assets/symbols/2001.png", "weight": "2" },
@@ -182,7 +178,11 @@ app.constant(
         { "s": "assets/symbols/9005.png", "weight": "9" },
         { "s": "assets/symbols/9006.png", "weight": "9" },
         { "s": "assets/symbols/9007.png", "weight": "9" },
-        { "s": "assets/symbols/9008.png", "weight": "9" }
+        { "s": "assets/symbols/9008.png", "weight": "9" },
+        { "s": "assets/symbols/10001.png", "weight": "10" },
+        { "s": "assets/symbols/10002.png", "weight": "10" },
+        { "s": "assets/symbols/12001.png", "weight": "12" },
+        { "s": "assets/symbols/12002.png", "weight": "12" }
     ]
 );
 
@@ -190,9 +190,9 @@ app.constant(
 app.controller('MainCtrl', function($scope, Lokiwork, json1, symbols) {
 
     $scope.symbols = symbols;
-    $scope.erase = 0;
-    var selectedSymbol = null;
     $scope.boxes = [];
+    var erase = 0;
+    var selectedSymbol = null;
 
     $scope.newPlan = function() {
         jQuery('.form-container').fadeIn( "slow", function() {
@@ -203,8 +203,8 @@ app.controller('MainCtrl', function($scope, Lokiwork, json1, symbols) {
     $scope.selectSymbol = function($e) {
         jQuery('.symbol-container .symbols > img').removeClass("enabled");
         // desactive le eraser
-        if($scope.erase) {
-            $scope.erase = ! $scope.erase;
+        if(erase) {
+            erase = ! erase;
             jQuery("#eraserBtn").toggleClass("enabled");
         }
         selectedSymbol = $e.currentTarget;
@@ -212,23 +212,34 @@ app.controller('MainCtrl', function($scope, Lokiwork, json1, symbols) {
     }
 
     $scope.eraserMode = function($e) {
-        elt = $e.currentTarget;
+        var elt = $e.currentTarget;
         // Desactive selection image
         jQuery('.symbol-container .symbols > img').removeClass("enabled");
-
-        $scope.erase = ! $scope.erase;
+        erase = ! erase;
         elt.classList.toggle("enabled");
     };
 
     $scope.boxClick = function($e) {
-        elt = $e.currentTarget;
+        var elt = $e.currentTarget;
 
-        if(selectedSymbol) {
+        if(selectedSymbol && ! erase) {
             elt.style.backgroundImage = "url('" + selectedSymbol.src + "')";
+            elt.setAttribute("weight", selectedSymbol.getAttribute("weight"));
+            if(selectedSymbol.getAttribute("weight") > 1){
+                var nb = selectedSymbol.getAttribute("weight") - 1;
+                jQuery(elt).nextAll().slice(0,nb).hide();
+                jQuery(elt).css({ width: (nb+1)*30 });
+            }
         }
         // If erase mode enabled
-        if($scope.erase) {
+        if(erase) {
             elt.style.backgroundImage = "none";
+            if(elt.getAttribute("weight") > 1){
+                var nb = elt.getAttribute("weight") - 1;
+                elt.setAttribute("weight", "1");
+                jQuery(elt).nextAll().slice(0,nb).show();
+                jQuery(elt).css({ width: 30 });
+            }
         }
     }
 
