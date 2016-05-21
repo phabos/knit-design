@@ -35,7 +35,7 @@ h1{
     text-align: center;
     margin: 50vh auto 0 auto;
     width: 400px;
-    transform: translateY(-50%);
+    transform: translateY(-90%);
 }
 .form-container input{
     border-bottom: 2px solid #4F9689;
