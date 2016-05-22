@@ -1,7 +1,14 @@
 {
-  "name": "Knit design",
+  "name": "knit-design",
   "version": "0.1.0",
+  "description": "Building and desining knit patterns",
   "main": "main.js",
+  "repository" :
+  {
+    "type" : "git",
+    "url" : "https://github.com/phabos/knit-design.git"
+  },
+  "license" : "GPL-3.0",
   "devDependencies": {
     "electron-prebuilt": "^1.1.1"
   }
