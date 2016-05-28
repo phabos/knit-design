@@ -15,7 +15,9 @@
                 <input name="longueur" type="number" min="0" placeholder="nb de colonnes" />
                 <br/>
                 <button type="submit" ng-click="submitForm()">Créer</button>
+                <button class="load" ng-click="loadFile()"><i class="fa fa-fire" aria-hidden="true"></i> Charger une sauvegarde</button>
             </form>
+            <div class="clear"></div>
         </div>
         <div class="container">
             <div id="canvas">
@@ -32,6 +34,9 @@
             <button ng-click="eraserMode($event)" id="eraserBtn">
                 <i class="fa fa-eraser" aria-hidden="true"></i>
             </button>
+            <button ng-click="saveFile($event)">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            </button>
             <div class="symbol-container">
                 <div class="symbols">
                     <img ng-repeat="symbol in symbols" ng-src="{{symbol.s}}" weight="{{symbol.weight}}" ng-click="selectSymbol($event)" />
@@ -40,7 +45,7 @@
         </div>
         <div class="clear"></div>
 
-        <script src="assets/js/jquery.js"></script>
+        <script>window.$ = window.jQuery = require('./assets/js/jquery.js');</script>
         <script src="assets/js/angular.js"></script>
         <script src="assets/js/lokijs.js"></script>
         <script src="assets/js/loki-angular.js"></script>

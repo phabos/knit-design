@@ -1,3 +1,7 @@
+/******** REQUIRE NODE JS MODULES ********/
+var fs = require('fs');
+const {dialog} = require('electron').remote;
+
 /******** INIT APP / SET DEPENDENCIES ********/
 var app = angular.module('tricot', ['lokijs']);
 
@@ -217,7 +221,20 @@ app.controller('MainCtrl', function($scope, Lokiwork, json1, symbols) {
         jQuery('.symbol-container .symbols > img').removeClass("enabled");
         erase = ! erase;
         elt.classList.toggle("enabled");
-    };
+    }
+
+    $scope.saveFile = function($e) {
+        var saveData = '{ "dimensions": { "hauteur": ' + $scope.hauteur + ', "longueur": ' + $scope.longueur + ' }, "datas": ' + angular.toJson($scope.boxes) + '}';
+        dialog.showSaveDialog(function (fileName) {
+            if (fileName === undefined) return;
+            try {
+                fs.writeFileSync(fileName + '.knit', saveData, 'utf-8');
+                console.log('Saved settings!');
+            } catch (err) {
+                throw err;
+            }
+        });
+    }
 
     $scope.boxClick = function($e) {
         var elt = $e.currentTarget;
@@ -243,12 +260,23 @@ app.controller('MainCtrl', function($scope, Lokiwork, json1, symbols) {
         }
     }
 
+    $scope.loadFile = function() {
+        console.log('loading...');
+        dialog.showOpenDialog({properties: ['openFile']}, function (fileNames) {
+            if (fileNames === undefined) return;
+            var fileName = fileNames[0];
+            fs.readFile(fileName, 'utf-8', function (err, data) {
+                loadScopeBoxes(JSON.parse(data));
+            });
+        });
+    }
+
     $scope.submitForm = function() {
         skipFormPanel();
         $scope.boxes = [];
         var dimension = 30;
-        var hauteur = +$('#create-form input[name=hauteur]').val();
-        var longueur = +$('#create-form input[name=longueur]').val();
+        var hauteur = $scope.hauteur = +$('#create-form input[name=hauteur]').val();
+        var longueur = $scope.longueur = +$('#create-form input[name=longueur]').val();
         var elt = document.getElementsByClassName("container");
         elt[0].style.width = (longueur * dimension) + "px";
 
@@ -263,6 +291,23 @@ app.controller('MainCtrl', function($scope, Lokiwork, json1, symbols) {
         jQuery('.form-container').fadeOut( "slow", function() {
             jQuery('.toolbox').addClass('active');
         });
+    }
+
+    function loadScopeBoxes(jsonData) {
+        skipFormPanel();
+        $scope.boxes = [];
+        var dimension = 30;
+        var hauteur = $scope.hauteur = +jsonData.dimensions.hauteur;
+        var longueur = $scope.longueur = +jsonData.dimensions.longueur;
+        var elt = document.getElementsByClassName("container");
+        elt[0].style.width = (longueur * dimension) + "px";
+
+        for (var i = 0; i < hauteur; i++) {
+            for (var k = 0; k < longueur; k++) {
+                $scope.boxes = $scope.boxes.concat({ left: (k * dimension) + "px", top: (i * dimension) + "px" });
+            }
+        }
+        console.log($scope.boxes);
     }
 
     // ** Ajouter des datas dans la collection **
