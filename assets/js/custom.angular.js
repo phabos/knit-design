@@ -236,32 +236,35 @@ app.controller('MainCtrl', function($scope, Lokiwork, json1, symbols) {
         });
     }
 
-    $scope.boxClick = function($e) {
+    $scope.boxClick = function($e, $i) {
         var elt = $e.currentTarget;
 
         if(selectedSymbol && ! erase) {
-            elt.style.backgroundImage = "url('" + selectedSymbol.src + "')";
-            elt.setAttribute("weight", selectedSymbol.getAttribute("weight"));
+            $scope.boxes[$i].background = "url('" + selectedSymbol.src + "')";
+            $scope.boxes[$i].weight = selectedSymbol.getAttribute("weight");
             if(selectedSymbol.getAttribute("weight") > 1){
-                var nb = selectedSymbol.getAttribute("weight") - 1;
-                jQuery(elt).nextAll().slice(0,nb).hide();
-                jQuery(elt).css({ width: (nb+1)*30 });
+                var nb = selectedSymbol.getAttribute("weight");
+                for (var i = (+$i + 1); i < (+$i + +nb); i++) {
+                    $scope.boxes[i].display = 'none';
+                }
+                $scope.boxes[$i].width = nb*30 + "px";
             }
         }
         // If erase mode enabled
         if(erase) {
-            elt.style.backgroundImage = "none";
+            $scope.boxes[$i].background = "none";
             if(elt.getAttribute("weight") > 1){
                 var nb = elt.getAttribute("weight") - 1;
-                elt.setAttribute("weight", "1");
-                jQuery(elt).nextAll().slice(0,nb).show();
-                jQuery(elt).css({ width: 30 });
+                $scope.boxes[$i].weight = selectedSymbol.getAttribute("weight");
+                for (var i = (+$i + 1); i < (+$i + +nb + 1); i++) {
+                    $scope.boxes[i].display = 'block';
+                }
+                $scope.boxes[$i].width = "30px";
             }
         }
     }
 
     $scope.loadFile = function() {
-        console.log('loading...');
         dialog.showOpenDialog({properties: ['openFile']}, function (fileNames) {
             if (fileNames === undefined) return;
             var fileName = fileNames[0];
@@ -282,7 +285,7 @@ app.controller('MainCtrl', function($scope, Lokiwork, json1, symbols) {
 
         for (var i = 0; i < hauteur; i++) {
             for (var k = 0; k < longueur; k++) {
-                $scope.boxes = $scope.boxes.concat({ left: (k * dimension) + "px", top: (i * dimension) + "px" });
+                $scope.boxes = $scope.boxes.concat({ left: (k * dimension) + "px", top: (i * dimension) + "px", display: 'block', background: 'none', weight: 1, width: "30px" });
             }
         }
     }
@@ -294,20 +297,17 @@ app.controller('MainCtrl', function($scope, Lokiwork, json1, symbols) {
     }
 
     function loadScopeBoxes(jsonData) {
-        skipFormPanel();
-        $scope.boxes = [];
-        var dimension = 30;
-        var hauteur = $scope.hauteur = +jsonData.dimensions.hauteur;
-        var longueur = $scope.longueur = +jsonData.dimensions.longueur;
-        var elt = document.getElementsByClassName("container");
-        elt[0].style.width = (longueur * dimension) + "px";
-
-        for (var i = 0; i < hauteur; i++) {
-            for (var k = 0; k < longueur; k++) {
-                $scope.boxes = $scope.boxes.concat({ left: (k * dimension) + "px", top: (i * dimension) + "px" });
-            }
-        }
-        console.log($scope.boxes);
+        // Use scope apply because fs load file is a new turn on our script
+        $scope.$apply(function () {
+            skipFormPanel();
+            $scope.boxes = [];
+            var dimension = 30;
+            var hauteur = $scope.hauteur = +jsonData.dimensions.hauteur;
+            var longueur = $scope.longueur = +jsonData.dimensions.longueur;
+            var elt = document.getElementsByClassName("container");
+            elt[0].style.width = (longueur * dimension) + "px";
+            $scope.boxes = jsonData.datas;
+        });
     }
 
     // ** Ajouter des datas dans la collection **

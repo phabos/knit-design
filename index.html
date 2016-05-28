@@ -21,7 +21,7 @@
         </div>
         <div class="container">
             <div id="canvas">
-                <div ng-repeat="box in boxes" ng-click="boxClick($event)" class="box" style="left: {{box.left}}; top: {{box.top}};" weight="1"></div>
+                <div ng-repeat="box in boxes" ng-click="boxClick($event, $index)" class="box" style="left: {{box.left}}; top: {{box.top}}; display:{{box.display}}; background-image:{{box.background}}; width: {{box.width}};" weight="{{box.weight}}"></div>
             </div>
             <div class="clear"></div>
         </div>
