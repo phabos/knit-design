@@ -26,6 +26,7 @@ app.constant(
 app.constant(
     'symbols',
     [
+        { "s": "assets/symbols/grey.png", "weight": "1" },
         { "s": "assets/symbols/1000.png", "weight": "1" },
         { "s": "assets/symbols/1001.png", "weight": "1" },
         { "s": "assets/symbols/1002.png", "weight": "1" },
@@ -62,6 +63,7 @@ app.constant(
         { "s": "assets/symbols/1033.png", "weight": "1" },
         { "s": "assets/symbols/1034.png", "weight": "1" },
         { "s": "assets/symbols/1035.png", "weight": "1" },
+        { "s": "assets/symbols/1035-2.png", "weight": "1" },
         { "s": "assets/symbols/1036.png", "weight": "1" },
         { "s": "assets/symbols/1037.png", "weight": "1" },
         { "s": "assets/symbols/1038.png", "weight": "1" },
